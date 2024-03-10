@@ -1,0 +1,12 @@
+sqlalchemy.engine.Engine - INFO - SELECT DATABASE()
+sqlalchemy.engine.Engine - INFO - [raw sql] {}
+sqlalchemy.engine.Engine - INFO - SELECT @@sql_mode
+sqlalchemy.engine.Engine - INFO - [raw sql] {}
+sqlalchemy.engine.Engine - INFO - SELECT @@lower_case_table_names
+sqlalchemy.engine.Engine - INFO - [raw sql] {}
+sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+sqlalchemy.engine.Engine - INFO - DESCRIBE `iptu`.`iptu_valores`
+sqlalchemy.engine.Engine - INFO - [raw sql] {}
+sqlalchemy.engine.Engine - INFO - INSERT INTO iptu_valores (estado, municipio, regiao, bairro, valor_m2, mes, ano) VALUES (%(estado)s, %(municipio)s, %(regiao)s, %(bairro)s, %(valor_m2)s, %(mes)s, %(ano)s)
+sqlalchemy.engine.Engine - INFO - [generated in 0.00864s] [{'estado': 'SP', 'municipio': 'São Paulo', 'regiao': 'Zona Norte', 'bairro': 'Santana', 'valor_m2': 7036.24, 'mes': '3', 'ano': '2024'}, {'estado': 'SP', 'municipio': 'São Paulo', 'regiao': 'Zona Norte', 'bairro': 'Lauzane Paulista', 'valor_m2': 5865.49, 'mes': '3', 'ano': '2024'}, {'estado': 'SP', 'municipio': 'São Paulo', 'regiao': 'Zona Norte', 'bairro': 'Tucuruvi', 'valor_m2': 6728.29, 'mes': '3', 'ano': '2024'}, {'estado': 'SP', 'municipio': 'São Paulo', 'regiao': 'Zona Norte', 'bairro': 'Vila Guilherme', 'valor_m2': 6534.11, 'mes': '3', 'ano': '2024'}, {'estado': 'SP', 'municipio': 'São Paulo', 'regiao': 'Zona Norte', 'bairro': 'Freguesia do Ó', 'valor_m2': 6276.21, 'mes': '3', 'ano': '2024'}, {'estado': 'SP', 'municipio': 'São Paulo', 'regiao': 'Zona Norte', 'bairro': 'Limão', 'valor_m2': 6220.24, 'mes': '3', 'ano': '2024'}, {'estado': 'SP', 'municipio': 'São Paulo', 'regiao': 'Zona Norte', 'bairro': 'Imirim', 'valor_m2': 6022.3, 'mes': '3', 'ano': '2024'}, {'estado': 'SP', 'municipio': 'São Paulo', 'regiao': 'Zona Norte', 'bairro': 'Mandaqui', 'valor_m2': 5769.46, 'mes': '3', 'ano': '2024'}  ... displaying 10 of 421 total bound parameter sets ...  {'estado': 'SP', 'municipio': 'São Paulo', 'regiao': 'Zona Oeste', 'bairro': 'Sumaré', 'valor_m2': 8071.61, 'mes': '3', 'ano': '2024'}, {'estado': 'SP', 'municipio': 'São Paulo', 'regiao': 'Zona Oeste', 'bairro': 'Vila Madalena', 'valor_m2': 7644.65, 'mes': '3', 'ano': '2024'}]
+sqlalchemy.engine.Engine - INFO - COMMIT

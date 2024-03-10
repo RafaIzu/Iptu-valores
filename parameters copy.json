@@ -1,0 +1,9 @@
+{
+    "main_url": "https://www.spimovel.com.br/blog/valor-do-metro-quadrado-em-sao-paulo-por-bairro-em-2022/3600/",
+    "driver": "mysqlconnector",
+    "db_user": "****",
+    "db_pw": "*****",
+    "db_server": "*****",
+    "db_port":"*****",
+    "db_name":"iptu"
+}
