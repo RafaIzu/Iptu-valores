@@ -64,16 +64,17 @@ class WebScraping(WebScrapingInterface):
 
         for table in self.html_tables:
             
+            residence_info = table.find_all('tr')[0].findChildren()[0].getText()
             region = table.find_all('tr')[0].findChildren()[-1].getText()
-
+            
             table_data_elements = table.find_all('tr')
             match = re.search(r'dados\s\w+\s\d+', table_data_elements[-1].getText().lower())
             date = match.group(0).replace('dados', '').strip() if match else 'NO_DATE'
             for i_row in range(2, len(table_data_elements) - 1):
                 table_data = table_data_elements[i_row].find_all('td')
-                table_rows.append((self.state, self.city, table_data[0].getText(), table_data[1].getText(), region, date))
+                table_rows.append((self.state, self.city, table_data[0].getText(), residence_info, table_data[1].getText(), region, date))
         
-        self.__df_iptu = pd.DataFrame(table_rows, columns=['estado', 'municipio', 'bairro', 'valor_m2', 'regiao', 'data'])
+        self.__df_iptu = pd.DataFrame(table_rows, columns=['estado', 'municipio', 'bairro', 'info', 'valor_m2', 'regiao', 'data'])
     
     @property
     def df_iptu(self):

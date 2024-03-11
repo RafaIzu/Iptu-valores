@@ -2,3 +2,5 @@ parameters.json
 env/
 venv/
 __pycache__/
+*.csv
+*.xlsx
