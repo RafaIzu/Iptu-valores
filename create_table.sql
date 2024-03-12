@@ -20,7 +20,7 @@ CONSTRAINT iptu_valores_pk PRIMARY KEY (ID)
 
 SELECT * FROM iptu_valores;
 
-DELETE FROM iptu_valores WHERE mes = 3;
+-- DELETE FROM iptu_valores;
 
-DROP TABLE iptu_Valores;
+-- DROP TABLE iptu_Valores;
 
