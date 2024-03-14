@@ -3,11 +3,14 @@ from modules.json import JsonFileParameter
 from modules.parameters import Parameters
 from modules.iptu import Iptu, IptuService
 from modules.db import Db, DbService
-import pandas as pd # teste
+# # import pandas as pd # teste
+import os
 import logging
 
-logging.basicConfig(filename='app.log', filemode='w',
-                    format='%(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(format='%(asctime)s - %(levelname)s: %(message)s',
+                    filename=f'{os.getcwd()}\\app.log', filemode='w',
+                    datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO,
+                    encoding='utf-8')
 
 
 def main():
@@ -23,7 +26,7 @@ def main():
     webscrapping = WebScrapingService(WebScraping(parameters, 'SP',
                                                   'São Paulo'))
     try:
-        webscrapping.run_all()
+        webscrapping.run_all(multiples_urls=False)
         logging.info('Webscrapping finished with success')
     except:
         logging.error('Webscrapping failed', exc_info=True)
@@ -42,9 +45,5 @@ def main():
 
     db_service.run_all(iptu.df_iptu,'iptu_valores')
 
-    # db_service.run_all(pd.DataFrame(),'iptu') # teste
-
-    
-    
 if __name__ == "__main__":
     main()

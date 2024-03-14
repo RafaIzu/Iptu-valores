@@ -1,12 +1,8 @@
 from abc import ABC, abstractclassmethod
 from sqlalchemy import create_engine
 import pandas as pd
-import mysql
+# import mysql
 import logging
-
-logging.basicConfig(filename='db.log', filemode='w',
-                    format='%(name)s - %(levelname)s - %(message)s')
-
 
 class DbInterface(ABC):
     @abstractclassmethod
