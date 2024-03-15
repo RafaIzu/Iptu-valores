@@ -7,6 +7,7 @@ class Parameters():
         self.__db_server = json_data['db_server']
         self.__db_port =  json_data['db_port']
         self.__db_name = json_data['db_name']
+        self.__multiples_urls = json_data['multiples_urls']
     
     @property
     def main_url(self):
@@ -35,4 +36,8 @@ class Parameters():
     @property
     def db_name(self):
         return self.__db_name
+    
+    @property
+    def multiples_urls(self):
+        return self.__multiples_urls
     

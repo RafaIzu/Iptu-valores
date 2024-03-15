@@ -26,7 +26,7 @@ def main():
     webscrapping = WebScrapingService(WebScraping(parameters, 'SP',
                                                   'São Paulo'))
     try:
-        webscrapping.run_all(multiples_urls=False)
+        webscrapping.run_all(multiples_urls=parameters.multiples_urls)
         logging.info('Webscrapping finished with success')
     except:
         logging.error('Webscrapping failed', exc_info=True)

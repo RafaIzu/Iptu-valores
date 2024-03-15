@@ -68,7 +68,7 @@ class Iptu(IptuInterface):
         self.df_iptu['valor_m2'] = pd.to_numeric(self.df_iptu['valor_m2'],errors='coerce')
 
     def drop_na_values(self):
-        self.df_iptu = self.df_iptu.dropna()
+        self.df_iptu.dropna(inplace=True)
 
     def format_info_column(self):
         self.df_iptu['info'] = self.df_iptu['info'].str.replace('\n','')
@@ -84,22 +84,29 @@ class Iptu(IptuInterface):
         self.df_iptu['num_vagas'] = self.df_iptu['info'].apply(lambda x: self.__get_num_vagas(x.lower()))
 
     def create_mes_column(self):
-        regex_match = re.search(r'\d\d\.\w+\.\d+', self.df_iptu['data'][0])
-        if regex_match:
-            self.df_iptu['data'] = self.df_iptu['data'].str.extract(r'(\d\d\.\w+\.\d+)')
-            self.df_iptu['mes'] = self.df_iptu['data'].str.split('.')[0][1]
-        else:
-            self.df_iptu['mes'] = self.df_iptu['data'].str.split()[0][2]
+        # regex_match = re.search(r'\d\d\.\w+\.\d+', self.df_iptu['data'][0])
+        # if regex_match:
+        #     self.df_iptu['data'] = self.df_iptu['data'].str.extract(r'(\d\d\.\w+\.\d+)')
+        #     self.df_iptu['mes'] = self.df_iptu['data'].str.split('.')[0][1]
+        # else:
+        #     self.df_iptu['mes'] = self.df_iptu['data'].str.split()[0][2]
+        self.df_iptu['mes'] = self.df_iptu['data'].apply(lambda x: self.__extract_month(x))
         self.df_iptu['mes'] = self.df_iptu['mes'].apply(lambda x: self.__months_pt.get(x.lower()[:3], ''))
 
     def create_ano_column(self):
-        regex_match = re.search(r'\d\d\.\w+\.\d+', self.df_iptu['data'][0])
-        if regex_match:
-            self.df_iptu['data'] = self.df_iptu['data'].str.extract(r'(\d\d\.\w+\.\d+)')
-            self.df_iptu['ano'] = self.df_iptu['data'].str.split('.')[0][2]
-        else:
-            self.df_iptu['ano'] = self.df_iptu['data'].str.split()[0][1]
+        # regex_match = re.search(r'\d\d\.\w+\.\d+', self.df_iptu['data'][0])
+        # if regex_match:
+        #     self.df_iptu['data'] = self.df_iptu['data'].str.extract(r'(\d\d\.\w+\.\d+)')
+        #     self.df_iptu['ano'] = self.df_iptu['data'].str.split('.')[0][2]
+        # else:
+        #     self.df_iptu['ano'] = self.df_iptu['data'].str.split()[0][1]
+        self.df_iptu['ano'] = self.df_iptu['data'].apply(lambda x: self.__extract_year(x))
     
+    def sort_columns(self):
+        self.df_iptu = self.df_iptu[['estado', 'municipio', 'regiao', 'bairro',
+                               'tipo_residencia', 'num_dorm', 'num_vagas',
+                               'valor_m2', 'info', 'mes', 'ano']]
+
     @staticmethod
     def __get_residency_type(residence_info):
         if 'kitnets e apartamentos de 1 dor' in residence_info:
@@ -114,7 +121,7 @@ class Iptu(IptuInterface):
             return 'outros'
     
     @staticmethod
-    def __get_num_dorm(residence_info):
+    def __get_num_dorm(residence_info:str):
         if 'kitnets e apartamentos de 1 dor' in residence_info \
             or 'kitnets / studios / lofts e apartamentos 1' in residence_info:
             return '1'
@@ -127,7 +134,7 @@ class Iptu(IptuInterface):
         return 'NO INFO'
     
     @staticmethod
-    def __get_num_vagas(residence_info):
+    def __get_num_vagas(residence_info:str):
         if 'sem vaga' in residence_info:
             return '0'
         match_regex = re.search(r'\d\svaga', residence_info)
@@ -138,10 +145,23 @@ class Iptu(IptuInterface):
             return match_regex.group(0).replace('vaga', '').strip()
         return 'NO INFO'
     
-    def sort_columns(self):
-        self.df_iptu = self.df_iptu[['estado', 'municipio', 'regiao', 'bairro',
-                               'tipo_residencia', 'num_dorm', 'num_vagas',
-                               'valor_m2', 'info', 'mes', 'ano']]
+    @staticmethod
+    def __extract_month(month:str):
+        regex_match = re.search(r'\d\d\.\w+\.\d+', month)
+        if regex_match:
+            return regex_match.group(0).split('.')[1]
+        else:
+            return month.split()[0]
+    
+    @staticmethod
+    def __extract_year(year:str):
+        regex_match = re.search(r'\d\d\.\w+\.\d+', year)
+        if regex_match:
+            return regex_match.group(0).split('.')[2]
+        else:
+            return year.split()[1]
+
+    
 
 
 class IptuService:

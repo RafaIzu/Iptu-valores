@@ -65,7 +65,7 @@ class WebScraping(WebScrapingInterface):
         table_rows = []
         for table, page_date in self.html_tables:
             residence_info = table.find_all('tr')[0].findChildren()[0].getText()
-            num_html_table_columns = table.find_all('tr')[2].findChildren()
+            num_html_table_columns = len(table.find_all('tr')[2].findChildren())
             region = table.find_all('tr')[0].findChildren()[-1].getText()
             table_data_elements = table.find_all('tr')
             regex_match = re.search(r'dados\s\w+\s\d+', table_data_elements[-1].getText().lower())
@@ -88,7 +88,7 @@ class WebScrapingService:
     def __init__(self, web_scraping: WebScraping) -> None:
         self.web_scraping = web_scraping
     
-    def run_all(self, multiples_urls:bool):
+    def run_all(self, multiples_urls:int):
         self.web_scraping.main_html = self.web_scraping.get_html_from_request(self.web_scraping.main_url)
         if multiples_urls: self.web_scraping.get_urls()
         self.web_scraping.get_html_elements()
